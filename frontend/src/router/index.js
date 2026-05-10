@@ -1,13 +1,15 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import Dashboard from '../views/Dashboard.vue';
+import ServerList from '../components/ServerList.vue';
 
 const routes = [
-  { path: '/', name: 'Dashboard', component: Dashboard }
-]
+  { path: '/', name: 'Dashboard', component: Dashboard },
+  { path: '/servers', name: 'ServerList', component: ServerList },
+];
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
