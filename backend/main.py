@@ -1,16 +1,13 @@
-# main.py
 from fastapi import FastAPI
-from .api import servers
-from .database import engine, Base
+from .api.server import router as server_router
+from .config import Settings
 
-app = FastAPI(title="DCMS Backend")
+settings = Settings()
 
-# Create tables
-Base.metadata.create_all(bind=engine)
+app = FastAPI(
+    title=settings.app_title,
+    version=settings.app_version,
+    description=settings.app_description,
+)
 
-# Include routers
-app.include_router(servers.router)
-
-@app.get("/")
-async def root():
-    return {"message": "Welcome to DCMS API"}
+app.include_router(server_router, prefix="/api")
