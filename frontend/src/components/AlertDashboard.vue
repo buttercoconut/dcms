@@ -9,16 +9,22 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const alerts = ref([]);
+interface Alert {
+  id: number;
+  message: string;
+  severity: string;
+}
+
+const alerts = ref<Alert[]>([]);
 
 const fetchAlerts = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/api/alerts');
-    alerts.value = res.data;
+    const response = await axios.get('/api/alerts');
+    alerts.value = response.data;
   } catch (e) {
     console.error('Failed to fetch alerts', e);
   }
@@ -28,7 +34,3 @@ onMounted(() => {
   fetchAlerts();
 });
 </script>
-
-<style scoped>
-/* Add component specific styles here */
-</style>

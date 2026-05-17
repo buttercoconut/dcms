@@ -1,14 +1,13 @@
 <template>
   <div>
     <h2>Server List</h2>
-    <table border="1" cellpadding="5" cellspacing="0">
+    <table>
       <thead>
         <tr>
           <th>ID</th>
           <th>Name</th>
           <th>Status</th>
           <th>IP</th>
-          <th>Uptime</th>
         </tr>
       </thead>
       <tbody>
@@ -17,23 +16,29 @@
           <td>{{ server.name }}</td>
           <td>{{ server.status }}</td>
           <td>{{ server.ip_address }}</td>
-          <td>{{ server.uptime }} hrs</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-const servers = ref([]);
+interface Server {
+  id: number;
+  name: string;
+  status: string;
+  ip_address: string;
+}
+
+const servers = ref<Server[]>([]);
 
 const fetchServers = async () => {
   try {
-    const res = await axios.get('http://localhost:8000/api/servers');
-    servers.value = res.data;
+    const response = await axios.get('/api/servers');
+    servers.value = response.data;
   } catch (e) {
     console.error('Failed to fetch servers', e);
   }
@@ -45,5 +50,15 @@ onMounted(() => {
 </script>
 
 <style scoped>
-/* Add component specific styles here */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
 </style>

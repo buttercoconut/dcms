@@ -1,12 +1,5 @@
-# main.py
 from fastapi import FastAPI
-from .api import servers
-from .config import settings
+from .api.servers import router as servers_router
 
-app = FastAPI(title="DCMS Backend", description="Data Center Management System API", version="0.1.0")
-
-app.include_router(servers.router)
-
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
+app = FastAPI(title="DCMS Backend")
+app.include_router(servers_router, prefix="/api")

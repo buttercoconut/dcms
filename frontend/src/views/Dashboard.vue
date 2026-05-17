@@ -1,16 +1,12 @@
 <template>
   <div>
-    <h2>Dashboard</h2>
-    <router-link to="/servers">Server List</router-link>
-    <router-link to="/alerts">Alerts</router-link>
-    <router-view />
+    <h1>Dashboard</h1>
+    <ServerList />
+    <AlertDashboard />
   </div>
 </template>
 
-<script setup>
-// Dashboard root view
+<script setup lang="ts">
+import ServerList from '@/components/ServerList.vue';
+import AlertDashboard from '@/components/AlertDashboard.vue';
 </script>
-
-<style scoped>
-/* Dashboard styles */
-</style>
